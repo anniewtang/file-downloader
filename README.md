@@ -81,8 +81,8 @@ uses the BeautifulSoup and Requests libraries for Python3, for my personal endea
             <li><b>STEP 2:</b> navigate to the folder you want to save your files to in your <code>Finder</code></li>
             <li><b>STEP 3:</b> hit <code>command + spacebar</code> to open up spotlight search</li>
             <li><b>STEP 4:</b> type in <code>terminal</code> into the search, and open up a new terminal window.</li>
-            <li><b>STEP 5:</b> go to your finder, and drag your folder onto the <code>terminal</code> <i>app icon that's located in your
-                dock! not the terminal window itself</li>
+            <li><b>STEP 5:</b> go to your finder, and drag your folder onto the <code>terminal</code> <i>app icon</i> that's located in
+                your dock! not the terminal window itself</li>
             <li><b>STEP 6:</b> now that you have the correct path loaded in your terminal, it should look something like this:
               <code>Mackbook:folder-name UserName$</code></li>
             <li><b>STEP 7:</b> now enter the following command: <code>pwd|pbcopy</code>. what this just did was copy the current path
