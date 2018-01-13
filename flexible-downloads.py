@@ -1,18 +1,39 @@
 import os
 import sys
-
 import requests
 from bs4 import BeautifulSoup
-
 import wget
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-url = 'https://inst.eecs.berkeley.edu/~cs170/fa17/'
-page = requests.get(url + 'calendar.html')
+# ask user what URL they want to download things from
+url_prompt = "What webpage do you want to download files from?"
+url = input(url_prompt)
+
+# tell user to look at the DOM/page source to figure out where files are located
+inspect_prompt = "Thank you! Please make sure to inspect the DOM/page source\
+for this next portion to guarantee accurate results. You may refer to\
+the readme for a reference/specific examples."
+print(inspect_prompt)
+
+# ask user if there's a particular extension that the files are located
+ext_prompt = "If there is a sub-page these extensions are located in,\
+please paste it here. Otherwise, just press enter.\n"
+extension = input(ext_prompt)
+
+# ask user for the html tag where the files are nested
+html_prompt = "Now, please enter the specific html tag where\
+the files you want are located: \n"
+tag = input(html_prompt)
+
+# ensure that the links provided are 
+
+# url = 'https://inst.eecs.berkeley.edu/~cs170/fa17/'
+# extension = ''
+page = requests.get(url + extension)
 soup = BeautifulSoup(page.text, 'html.parser')
 
-weekly_rows = soup.find_all('tbody')
+weekly_rows = soup.find_all(tag)
 weekly_links = []
 
 for wk in weekly_rows: 
