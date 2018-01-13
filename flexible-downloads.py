@@ -35,23 +35,41 @@ for lnks in weekly_links:
 	urls.extend(extracted_without_none)
 
 path = '/Users/Annie/file-downloader/test-folder'
-prompt = "Do you want to download {}?\n\
+select_option_prompt = "Do you want to manually select which files \
+you want to keep/download from this webpage?\n\
+Enter [Y]es/[N]o/[Q]uit: "
+confirm_dl_prompt = "Do you want to download {}?\n\
 Enter [Y]es/[N]o/[Q]uit here: "
+manual = False
 
 def verify(ans):
 	return ans == 'y' or ans == 'yes'
 def quit(ans):
 	return ans == 'q' or ans == 'quit'
 
+answer = input(select_option_prompt).lower()
+if verify(answer):
+	manual = True
+elif quit(answer):
+	sys.exit()
 
+def prompt_user(url, filename):
+	answer = input(confirm_dl_prompt.format(filename)).lower()
+	if verify(answer):
+		wget.download(url, out=path)
+		print()
+	elif quit(answer):
+		return False
+	return True
 
 for url in urls:
 	r = requests.get(url)
 	if r.status_code != 404:
 		filename = os.path.basename(url) 
-		answer = input(prompt.format(filename))
-		if verify(answer.lower()):
+		if manual:
+			if not prompt_user(url, filename):
+				break
+		else:
+			print("Downloading {}".format(filename))
 			wget.download(url, out=path)
 			print()
-		elif quit(answer.lower()):
-			break
