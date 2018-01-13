@@ -1,3 +1,7 @@
+##### PYTHON SCRIPT TO DOWNLOAD FILES FROM WEBPAGES ######
+##### -------- by github user, @anniewtang -------- ######
+#####  read the readme for instructions & examples  ######
+
 import os
 import sys
 import requests
@@ -6,30 +10,19 @@ import wget
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-# ask user what URL they want to download things from
-url_prompt = "What webpage do you want to download files from?"
-url = input(url_prompt)
+# TODO: paste the url of the website inside the ""
+url = ""
+#END
 
-# tell user to look at the DOM/page source to figure out where files are located
-inspect_prompt = "Thank you! Please make sure to inspect the DOM/page source\
-for this next portion to guarantee accurate results. You may refer to\
-the readme for a reference/specific examples."
-print(inspect_prompt)
+# TODO: if there's a sub-page/extension that the files are located in,
+# paste it between the "" — otherwise, leave as is.
+extension = ""
+#END
 
-# ask user if there's a particular extension that the files are located
-ext_prompt = "If there is a sub-page these extensions are located in,\
-please paste it here. Otherwise, just press enter.\n"
-extension = input(ext_prompt)
+# TODO: paste the specific html tag that wraps where the files are located
+tag = ""
+#END
 
-# ask user for the html tag where the files are nested
-html_prompt = "Now, please enter the specific html tag where\
-the files you want are located: \n"
-tag = input(html_prompt)
-
-# ensure that the links provided are 
-
-# url = 'https://inst.eecs.berkeley.edu/~cs170/fa17/'
-# extension = ''
 page = requests.get(url + extension)
 soup = BeautifulSoup(page.text, 'html.parser')
 
@@ -42,12 +35,17 @@ for wk in weekly_rows:
 		weekly_links.append(lnks)
 
 urls = []
-keyword = 'assets'
 
+#TODO: if there is a certain keyword that *starts* each link you want
+# to use, paste it between the "" 
+keyword = ""
+#END
+
+end = len(keyword)
 # keeps lnk if it starts with assets
 def extract_link(lnk):
 	href = lnk['href']
-	if href[0:6] == keyword:
+	if href[0:end] == keyword:
 		return url + '/' + href
 
 for lnks in weekly_links:
@@ -55,7 +53,10 @@ for lnks in weekly_links:
 	extracted_without_none = list(filter(lambda x: x is not None, extracted_with_none))
 	urls.extend(extracted_without_none)
 
-path = '/Users/Annie/file-downloader/test-folder'
+#TODO: indicate the path where you want your files to be downloaded to
+path = ""
+#END
+
 select_option_prompt = "Do you want to manually select which files \
 you want to keep/download from this webpage?\n\
 Enter [Y]es/[N]o/[Q]uit: "
