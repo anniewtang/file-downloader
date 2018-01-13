@@ -1,6 +1,4 @@
 # file-downloader
-a winter 2017 break project — <br>
-uses the BeautifulSoup and Requests libraries for Python3, for my personal endeavor of learning webscraping.</p>
 
 ### PURPOSE + CAVEATS
 <p><ul>
