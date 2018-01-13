@@ -1,5 +1,9 @@
+import os
+import sys
+
 import requests
 from bs4 import BeautifulSoup
+
 import wget
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -31,8 +35,23 @@ for lnks in weekly_links:
 	urls.extend(extracted_without_none)
 
 path = '/Users/Annie/file-downloader/test-folder'
+prompt = "Do you want to download {}?\n\
+Enter [Y]es/[N]o/[Q]uit here: "
+
+def verify(ans):
+	return ans == 'y' or ans == 'yes'
+def quit(ans):
+	return ans == 'q' or ans == 'quit'
+
+
+
 for url in urls:
 	r = requests.get(url)
 	if r.status_code != 404:
-		basename = os.path.basename(url)
-		wget.download(url, out=path)
+		filename = os.path.basename(url) 
+		answer = input(prompt.format(filename))
+		if verify(answer.lower()):
+			wget.download(url, out=path)
+			print()
+		elif quit(answer.lower()):
+			break
